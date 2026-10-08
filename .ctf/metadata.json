@@ -1,0 +1,14 @@
+{
+  "title": "OWASP SKF YAML Deserialization",
+  "description": "A Flask page whose content comes from a base64-encoded YAML document in the URL, parsed with PyYAML's unsafe yaml.load.",
+  "question": "Craft a YAML document that makes PyYAML run a command on the server when it is loaded (insecure deserialization).",
+  "category": "WEB",
+  "difficulty": 2,
+  "evidence_kind": "SECRET",
+  "capabilities": [
+    "deserialization",
+    "yaml",
+    "remote-code-execution",
+    "python"
+  ]
+}

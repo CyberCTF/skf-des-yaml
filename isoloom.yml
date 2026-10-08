@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# OWASP SKF YAML Deserialization (OWASP Security Knowledge Framework labs, by Glenn ten Cate, Riccardo ten Cate and the SKF contributors) as an Isoloom spec:
+# a Flask app that loads base64-encoded YAML from the URL with yaml.load (insecure deserialization). The SKF lab folder python/DES-Yaml is
+# vendored unchanged in app/ and built by its own Dockerfile.
+# `isoloom generate`, then `isoloom run docker`.
+version: 1
+name: skf-des-yaml
+
+networks:
+  lab: { cidr: 10.60.153.0/24, internet: false }
+
+machines:
+  web:
+    networks: { lab: 10 }
+    services: [{ port: 5000, name: web, http: true, publish: 5050 }]
+    resources: { cpus: 1, memory_mb: 256 }
+    docker:
+      build: app
+
+checks:
+  - name: the lab answers
+    http: http://web:5000/information/eWFtbDogVGhlIGluZm9ybWF0aW9uIHBhZ2UgaXMgc3RpbGwgdW5kZXIgY29uc3RydWN0aW9uLCB1cGRhdGVzIGNvbWluZyBzb29uIQ==
+    wait: 120
+  - name: the page is rendered from base64 YAML in the URL
+    script: checks/yaml.sh
+
+message: |
+  OWASP SKF YAML Deserialization answers at http://localhost:{{ machines.web.services.0.publish }}/.
+  The home page redirects to /information/<base64>. Decode it.
