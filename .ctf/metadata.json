@@ -1,7 +1,7 @@
 {
   "title": "OWASP SKF YAML Deserialization",
   "description": "A Flask page whose content comes from a base64-encoded YAML document in the URL, parsed with PyYAML's unsafe yaml.load.",
-  "question": "Craft a YAML document that makes PyYAML run a command on the server when it is loaded (insecure deserialization).",
+  "question": "Exploit the unsafe YAML loading to run a command on the server and read /ctf/flag.",
   "category": "WEB",
   "difficulty": 2,
   "evidence_kind": "SECRET"

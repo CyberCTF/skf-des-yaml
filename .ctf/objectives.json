@@ -1,0 +1,54 @@
+{
+  "objectives": [
+    {
+      "key": "main",
+      "title": "Read the flag",
+      "prompt": "Get code execution through the YAML loader and read /ctf/flag.",
+      "check": {
+        "evidence": "SECRET",
+        "format": "FLAG{%s}"
+      },
+      "dev": "FLAG{dev-skf-des-yaml}",
+      "hints": [
+        "The page content comes from a base64 document taken from the URL.",
+        "Read about the difference between PyYAML's unsafe load and safe_load."
+      ],
+      "steps": [
+        {
+          "key": "lib",
+          "title": "Identify the parser",
+          "prompt": "Which Python library parses the document?",
+          "check": {
+            "answer": [
+              "pyyaml",
+              "yaml"
+            ]
+          }
+        },
+        {
+          "key": "encoding",
+          "title": "Identify the transport",
+          "prompt": "In which encoding is the document placed in the URL?",
+          "check": {
+            "answer": [
+              "base64",
+              "base 64"
+            ]
+          }
+        },
+        {
+          "key": "class",
+          "title": "Name the weakness",
+          "prompt": "What class of vulnerability is this?",
+          "check": {
+            "answer": [
+              "insecure deserialization",
+              "deserialization",
+              "yaml deserialization"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
